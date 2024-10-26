@@ -17,12 +17,12 @@
     </nav>
 
     {% block content %}
-
         <h2>All Assessments</h2>
         <ul>
             {% for assessment in assessments %}
                 <li>{{ assessment.title }} - {{ assessment.module_code }} - {{ assessment.deadline.strftime('%Y-%m-%d') }} - {{ assessment.status }}</li>
-    {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    {% endblock %}
 </body>
 </html>

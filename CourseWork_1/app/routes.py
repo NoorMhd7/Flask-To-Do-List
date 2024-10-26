@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .models import db, Assessment  # Use relative import
+from .models import db, Assessment  
+from datetime import datetime
 
 
 main = Blueprint('main', __name__)
@@ -14,10 +15,15 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         module_code = request.form['module_code']
-        deadline = request.form['deadline']
+        
+        # Convert the deadline input to a datetime object
+        deadline_str = request.form['deadline']
+        deadline = datetime.strptime(deadline_str, '%Y-%m-%d')
+        
         description = request.form['description']
         status = request.form['status']
         
+        # Create a new assessment object with the datetime-converted deadline
         new_assessment = Assessment(title=title, module_code=module_code, 
                                     deadline=deadline, description=description, 
                                     status=status)
@@ -25,8 +31,7 @@ def create():
         db.session.commit()
         return redirect(url_for('main.home'))
 
-    return render_template('create.html')  # Create a separate template for the form
-
+    return render_template('create.html')  # Render the form template
 @main.route('/pending')
 def pending():
     # Fetch pending assessments from the database
