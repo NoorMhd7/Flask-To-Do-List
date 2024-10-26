@@ -3,31 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Assessments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-brand">To-Do List</div>
-        <ul class="navbar-links">
+    <nav>
+        <ul>
             <li><a href="{{ url_for('main.home') }}">All Assessments</a></li>
             <li><a href="{{ url_for('main.create') }}">Create Assessments</a></li>
             <li><a href="{{ url_for('main.pending') }}">Pending Assessments</a></li>
             <li><a href="{{ url_for('main.completed') }}">Completed Assessments</a></li>
         </ul>
-        <div class="navbar-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
     </nav>
-    
-    <!-- Main Content -->
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
 
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    {% block content %}
+
+        <h2>All Assessments</h2>
+        <ul>
+            {% for assessment in assessments %}
+                <li>{{ assessment.title }} - {{ assessment.module_code }} - {{ assessment.deadline.strftime('%Y-%m-%d') }} - {{ assessment.status }}</li>
+    {% endfor %}
+    </ul>
 </body>
 </html>

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Completed Assessments{% endblock %}
+
+{% block content %}
+    <h1>Pending Assessments</h1>
+    <ul>
+        {% for assessment in assessments %}
+            <li>{{ assessment.title }} - {{ assessment.deadline }}</li>
+        {% else %}
+            <li>No pending assessments.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
