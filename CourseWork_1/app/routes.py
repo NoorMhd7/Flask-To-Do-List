@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from .models import db, Assessment  
 from datetime import datetime
 
@@ -42,3 +42,29 @@ def pending():
 def completed():
     completed_assessments = Assessment.query.filter_by(status='completed').all()
     return render_template('completed.html', assessments=completed_assessments)  # Create a separate template for completed assessments
+
+@main.route('/update_status/<int:assessment_id>', methods=['POST'])
+def update_status(assessment_id):
+    # Update logic here
+    assessment = Assessment.query.get(assessment_id)
+    if assessment and assessment.status == 'pending':
+        assessment.status = 'completed'
+        db.session.commit()
+        flash("Assessment marked as completed!", "success")
+    else:
+        flash("Assessment not found or already completed.", "error")
+    
+    return redirect(url_for('main.pending'))
+
+
+@main.route('/delete/<int:id>', methods=['POST'])
+def delete_task(id):
+    task_to_delete = Assessment.query.get_or_404(id)
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        flash("Task deleted successfully!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("There was an issue deleting the task.", "danger")
+    return redirect(url_for('main.home'))

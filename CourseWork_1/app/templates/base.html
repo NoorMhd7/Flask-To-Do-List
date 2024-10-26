@@ -28,23 +28,46 @@
         </div>
     </nav>
 
-    {% block content %}
-        <div class="assessment-container">
-            {% for assessment in assessments %}
-                <div class="assessment-box">
-                    <div class="assessment-header">
-                        <h3>{{ assessment.title }}</h3>
-                        <!-- Dynamic class assignment for status -->
-                        <span class="status {% if assessment.status == 'pending' %}pending{% elif assessment.status == 'completed' %}completed{% endif %}">
-                            {{ assessment.status }}
-                        </span>
-                    </div>
-                    <p><strong>Module Code:</strong> {{ assessment.module_code }}</p>
-                    <p><strong>Deadline:</strong> {{ assessment.deadline.strftime('%Y-%m-%d') }}</p>
-                    <p><strong>Description:</strong> {{ assessment.description }}</p>
-                </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
             {% endfor %}
         </div>
+    {% endif %}
+    {% endwith %}
+
+
+    {% block content %}
+    <h2>All Assessments</h2>
+    <div class="assessment-container"> <!-- Changed from task-list to assessment-container -->
+        {% for assessment in assessments %}
+            <div class="assessment-box"> <!-- Changed from task-container to assessment-box -->
+                <div class="task-content">
+                    <span class="module-code">{{ assessment.module_code }}</span>
+                    <span class="title">{{ assessment.title }}</span>
+                    <span class="deadline">{{ assessment.deadline.strftime('%Y-%m-%d') }}</span>
+                    <span class="description">{{ assessment.description }}</span>
+                    <span class="status {% if assessment.status == 'pending' %}pending{% else %}completed{% endif %}">
+                        {{ assessment.status }}
+                    </span>
+                </div>
+                <div class="task-actions">
+                    {% if assessment.status == 'pending' %}
+                    <form method="POST" action="{{ url_for('main.update_status', assessment_id=assessment.id) }}">
+                        <button type="submit" class="status-btn">Mark as Completed</button>
+                    </form>
+                    {% endif %}
+                    <form action="{{ url_for('main.delete_task', id=assessment.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn delete-task">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>No assessments available.</p>
+        {% endfor %}
+    </div>
     {% endblock %}
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>

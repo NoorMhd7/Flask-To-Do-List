@@ -3,6 +3,8 @@
 {% block title %}Pending Assessments{% endblock %}
 
 {% block content %}
+    <h1>Pending Assessments</h1>
+
     <div class="assessment-container">
         {% for assessment in assessments %}
             <div class="assessment-box">
@@ -15,11 +17,16 @@
                 <p><strong>Module Code:</strong> {{ assessment.module_code }}</p>
                 <p><strong>Deadline:</strong> {{ assessment.deadline.strftime('%Y-%m-%d') }}</p>
                 <p><strong>Description:</strong> {{ assessment.description }}</p>
+                
+                <!-- Form to change status -->
+                {% if assessment.status == 'pending' %}
+                    <form method="POST" action="{{ url_for('main.update_status', assessment_id=assessment.id) }}">
+                        <button type="submit" class="status-btn">Mark as Completed</button>
+                    </form>
+                {% endif %}
             </div>
         {% else %}
             <p>No pending assessments.</p>
         {% endfor %}
     </div>
 {% endblock %}
-
-
