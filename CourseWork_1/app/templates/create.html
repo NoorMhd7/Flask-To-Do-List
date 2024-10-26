@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Create Assessment</h1>
-<form method="POST" action="{{ url_for('main.create') }}">
-    <input type="text" name="title" placeholder="Title" required>
-    <input type="text" name="module_code" placeholder="Module Code" required>
-    <input type="date" name="deadline" placeholder="Deadline" required>
-    <textarea name="description" placeholder="Description"></textarea>
-    <select name="status">
-        <option value="pending">Pending</option>
-        <option value="completed">Completed</option>
-    </select>
-    <button type="submit">Submit</button>
-</form>
+<div class="form-container">
+    <h1>Create Assessment</h1>
+    <form method="POST" action="{{ url_for('main.create') }}">
+        <input type="text" name="module_code" placeholder="Module Code" class="form-input" required>
+        <input type="text" name="title" placeholder="Title" class="form-input" required>
+        <input type="date" name="deadline" placeholder="Deadline" class="form-input" required>
+        <textarea name="description" placeholder="Description" class="form-input"></textarea>
+        <select name="status" class="form-input">
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+        </select>
+        <button type="submit" class="form-button">Submit</button>
+    </form>
+</div>
 {% endblock %}

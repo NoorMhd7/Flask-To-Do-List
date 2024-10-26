@@ -29,12 +29,22 @@
     </nav>
 
     {% block content %}
-        <h2>All Assessments</h2>
-        <ul>
+        <div class="assessment-container">
             {% for assessment in assessments %}
-                <li>{{ assessment.title }} - {{ assessment.module_code }} - {{ assessment.deadline.strftime('%Y-%m-%d') }} - {{ assessment.status }}</li>
+                <div class="assessment-box">
+                    <div class="assessment-header">
+                        <h3>{{ assessment.title }}</h3>
+                        <!-- Dynamic class assignment for status -->
+                        <span class="status {% if assessment.status == 'pending' %}pending{% elif assessment.status == 'completed' %}completed{% endif %}">
+                            {{ assessment.status }}
+                        </span>
+                    </div>
+                    <p><strong>Module Code:</strong> {{ assessment.module_code }}</p>
+                    <p><strong>Deadline:</strong> {{ assessment.deadline.strftime('%Y-%m-%d') }}</p>
+                    <p><strong>Description:</strong> {{ assessment.description }}</p>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% endblock %}
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>

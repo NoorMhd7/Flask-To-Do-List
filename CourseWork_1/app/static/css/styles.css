@@ -99,3 +99,113 @@ nav a {
     transform: scaleX(1);
   }
   
+/* For create.html */
+
+/* Form Container Styling */
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #333;
+    color: #ffd700;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Element Styling */
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #444;
+    color: #ffd700;
+    font-size: 1rem;
+}
+
+.form-input::placeholder {
+    color: #ccc;
+}
+
+.form-button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background-color: #ffd700;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #ffaa00;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 1.5rem;
+    }
+    .form-input, .form-button {
+        font-size: 0.9rem;
+    }
+}
+
+/* Assessment Container */
+.assessment-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between boxes */
+    padding: 20px;
+}
+
+/* Individual Assessment Box */
+.assessment-box {
+    background-color: #333; /* Light grey background */
+    border: 1px solid #000000; /* Border for box */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Padding inside the box */
+    width: calc(33.333% - 20px); /* Three boxes per row with gap */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Assessment Header */
+.assessment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Status Label */
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.status.pending {
+    background-color: #ffaa00; /* Yellow for pending */
+}
+
+.status.completed {
+    background-color: #059b1e; /* Green for completed */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .assessment-box {
+        width: calc(50% - 20px); /* Two boxes per row on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .assessment-box {
+        width: 100%; /* One box per row on small screens */
+    }
+}
