@@ -9,8 +9,7 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <!-- Navbar Brand -->
-        <div class="navbar-brand">To do List</div>
+        
 
         <!-- Navbar Links -->
         <ul class="navbar-links">
@@ -19,6 +18,8 @@
             <li><a href="{{ url_for('main.pending') }}">Pending Assessments</a></li>
             <li><a href="{{ url_for('main.completed') }}">Completed Assessments</a></li>
         </ul>
+        <!-- Navbar Brand -->
+        <div class="navbar-brand">To do List</div>
 
         <!-- Navbar Toggle (for mobile) -->
         <div class="navbar-toggle">
@@ -52,10 +53,17 @@
                         {{ assessment.status }}
                     </span>
                 </div>
+                
                 <div class="task-actions">
+                    <a href="{{ url_for('main.edit_assessment', assessment_id=assessment.id) }}" class="btn edit-task">Edit</a>
                     {% if assessment.status == 'pending' %}
                     <form method="POST" action="{{ url_for('main.update_status', assessment_id=assessment.id) }}">
                         <button type="submit" class="status-btn">Mark as Completed</button>
+                    </form>
+                    {% endif %}
+                    {% if assessment.status == 'completed' %}
+                    <form method="POST" action="{{ url_for('main.unfinish_status', assessment_id=assessment.id) }}">
+                        <button type="submit" class="unfinish-btn">Un-finish</button>
                     </form>
                     {% endif %}
                     <form action="{{ url_for('main.delete_task', id=assessment.id) }}" method="POST" style="display: inline;">

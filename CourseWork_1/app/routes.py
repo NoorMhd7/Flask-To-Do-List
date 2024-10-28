@@ -54,7 +54,10 @@ def update_status(assessment_id):
     else:
         flash("Assessment not found or already completed.", "error")
     
-    return redirect(url_for('main.pending'))
+    if request.referrer and request.referrer.endswith(url_for('main.home')):
+        return redirect(url_for('main.home'))
+    else:
+        return redirect(url_for('main.pending'))
 
 
 @main.route('/delete/<int:id>', methods=['POST'])
@@ -67,4 +70,51 @@ def delete_task(id):
     except Exception as e:
         db.session.rollback()
         flash("There was an issue deleting the task.", "danger")
-    return redirect(url_for('main.home'))
+    if request.referrer and request.referrer.endswith(url_for('main.home')):
+        return redirect(url_for('main.home'))
+    elif request.referrer and request.referrer.endswith(url_for('main.completed')):
+        return redirect(url_for('main.completed'))
+    else:
+        return redirect(url_for('main.completed'))
+
+@main.route('/unfinish_status/<int:assessment_id>', methods=['POST'])
+def unfinish_status(assessment_id):
+    # Update logic here
+    assessment = Assessment.query.get(assessment_id)
+    if assessment and assessment.status == 'completed':
+        assessment.status = 'pending'
+        db.session.commit()
+        flash("Assessment marked as pending!", "success")
+    else:
+        flash("Assessment not found or already in pending.", "error")
+    
+    if request.referrer and request.referrer.endswith(url_for('main.home')):
+        return redirect(url_for('main.home'))
+    else:
+        return redirect(url_for('main.completed'))
+    
+@main.route('/edit_assessment/<int:assessment_id>', methods=['GET', 'POST'])
+def edit_assessment(assessment_id):
+    # Retrieve the assessment by ID
+    assessment = Assessment.query.get_or_404(assessment_id)
+    
+    if request.method == 'POST':
+        # Get updated data from the form
+        assessment.title = request.form['title']
+        assessment.module_code = request.form['module_code']
+        assessment.description = request.form['description']
+        
+        # Parse and update the deadline
+        try:
+            assessment.deadline = datetime.strptime(request.form['deadline'], '%Y-%m-%d')
+        except ValueError:
+            flash("Invalid date format. Please use YYYY-MM-DD.", "error")
+            return render_template('edit_assessment.html', assessment=assessment)
+        
+        # Commit changes to the database
+        db.session.commit()
+        flash("Assessment updated successfully!", "success")
+        return redirect(url_for('main.home'))  # Or wherever you want to redirect after edit
+
+    # Render the edit form with current data
+    return render_template('edit_assessment.html', assessment=assessment)

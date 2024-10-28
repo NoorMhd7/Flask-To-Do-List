@@ -16,6 +16,12 @@
                     </span>
                 </div>
                 <div class="task-actions">
+                    <a href="{{ url_for('main.edit_assessment', assessment_id=assessment.id) }}" class="btn edit-task">Edit</a>
+                    {% if assessment.status == 'completed' %}
+                    <form method="POST" action="{{ url_for('main.unfinish_status', assessment_id=assessment.id) }}">
+                        <button type="submit" class="unfinish-btn">Un-finish</button>
+                    </form>
+                    {% endif %}
                     <form action="{{ url_for('main.delete_task', id=assessment.id) }}" method="POST" style="display: inline;">
                         <button type="submit" class="btn delete-task">Delete</button>
                     </form>

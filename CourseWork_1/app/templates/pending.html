@@ -16,6 +16,7 @@
                     </span>
                 </div>
                 <div class="task-actions">
+                    <a href="{{ url_for('main.edit_assessment', assessment_id=assessment.id) }}" class="btn edit-task">Edit</a>
                     {% if assessment.status == 'pending' %}
                     <form method="POST" action="{{ url_for('main.update_status', assessment_id=assessment.id) }}">
                         <button type="submit" class="status-btn">Mark as Completed</button>

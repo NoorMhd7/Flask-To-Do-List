@@ -17,3 +17,20 @@ document.addEventListener("DOMContentLoaded", function() {
         formContainer.style.opacity = 1;
     }, 100);
 });
+
+// flash messages time out
+window.onload = function() {
+    const flashMessages = document.querySelectorAll('.flash-message');
+    setTimeout(() => {
+        flashMessages.forEach(message => {
+            message.style.opacity = '0'; // Fade out
+        });
+    }, 2000); // 2000ms = 2 seconds
+
+    // Completely remove the messages from the DOM after the fade-out transition
+    setTimeout(() => {
+        flashMessages.forEach(message => {
+            message.remove();
+        });
+    }, 2500); // 500ms after fade out ends
+};

@@ -146,6 +146,29 @@ nav a {
     background-color: #ffaa00;
 }
 
+/* Style Cancel Button */
+.cancel-button {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background-color: #333;
+    color: #ffd700;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #555;
+    color: #fff;
+}
+
 /* Responsive Styling */
 @media (max-width: 600px) {
     .form-container {
@@ -227,7 +250,7 @@ nav a {
     gap: 8px;
 }
 
-.status-btn, .delete-task {
+.status-btn, .delete-task, .unfinish-btn, .edit-task {
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
@@ -259,6 +282,28 @@ nav a {
 .delete-task:hover {
     background-color: #f00; /* Fill red on hover */
     color: #fff; /* White text on hover */
+}
+
+.unfinish-btn {
+    border-color: rgb(0, 156, 228);
+    color: rgb(0, 156, 228);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.unfinish-btn:hover {
+    background-color: rgb(0, 156, 228);
+    color: #fff;
+}
+
+.edit-task {
+    border-color: rgb(138, 0, 218); /* Blue border for edit */
+    color: rgb(138, 0, 218);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.edit-task:hover {
+    background-color: rgb(138, 0, 218);
+    color: #fff;
 }
 
 /* Form styling within actions */
