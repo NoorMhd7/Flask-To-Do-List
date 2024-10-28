@@ -40,7 +40,6 @@
 
 
     {% block content %}
-    <h2>All Assessments</h2>
     <div class="assessment-container"> <!-- Changed from task-list to assessment-container -->
         {% for assessment in assessments %}
             <div class="assessment-box"> <!-- Changed from task-container to assessment-box -->
@@ -65,7 +64,7 @@
                 </div>
             </div>
         {% else %}
-            <p>No assessments available.</p>
+            <p class="no-assessments">No assessments available.</p>
         {% endfor %}
     </div>
     {% endblock %}

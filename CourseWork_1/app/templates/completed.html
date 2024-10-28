@@ -1,24 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %}Pending Assessments{% endblock %}
+{% block title %}Completed Assessments{% endblock %}
 
 {% block content %}
     <div class="assessment-container">
         {% for assessment in assessments %}
             <div class="assessment-box">
-                <div class="assessment-header">
-                    <h3>{{ assessment.title }}</h3>
-                    <span class="status {% if assessment.status == 'pending' %}pending{% elif assessment.status == 'completed' %}completed{% endif %}">
+                <div class="task-content">
+                    <span class="module-code">{{ assessment.module_code }}</span>
+                    <span class="title">{{ assessment.title }}</span>
+                    <span class="deadline">{{ assessment.deadline.strftime('%Y-%m-%d') }}</span>
+                    <span class="description">{{ assessment.description }}</span>
+                    <span class="status {% if assessment.status == 'pending' %}pending{% else %}completed{% endif %}">
                         {{ assessment.status }}
                     </span>
                 </div>
-                <p><strong>Module Code:</strong> {{ assessment.module_code }}</p>
-                <p><strong>Deadline:</strong> {{ assessment.deadline.strftime('%Y-%m-%d') }}</p>
-                <p><strong>Description:</strong> {{ assessment.description }}</p>
+                <div class="task-actions">
+                    <form action="{{ url_for('main.delete_task', id=assessment.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn delete-task">Delete</button>
+                    </form>
+                </div>
             </div>
         {% else %}
-            <p>No pending assessments.</p>
+            <p class="no-assessments">No completed assessments.</p>
         {% endfor %}
     </div>
 {% endblock %}
-

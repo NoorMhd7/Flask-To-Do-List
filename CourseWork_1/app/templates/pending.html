@@ -3,30 +3,32 @@
 {% block title %}Pending Assessments{% endblock %}
 
 {% block content %}
-    <h1>Pending Assessments</h1>
-
     <div class="assessment-container">
         {% for assessment in assessments %}
             <div class="assessment-box">
-                <div class="assessment-header">
-                    <h3>{{ assessment.title }}</h3>
-                    <span class="status {% if assessment.status == 'pending' %}pending{% elif assessment.status == 'completed' %}completed{% endif %}">
+                <div class="task-content">
+                    <span class="module-code">{{ assessment.module_code }}</span>
+                    <span class="title">{{ assessment.title }}</span>
+                    <span class="deadline">{{ assessment.deadline.strftime('%Y-%m-%d') }}</span>
+                    <span class="description">{{ assessment.description }}</span>
+                    <span class="status {% if assessment.status == 'pending' %}pending{% else %}completed{% endif %}">
                         {{ assessment.status }}
                     </span>
                 </div>
-                <p><strong>Module Code:</strong> {{ assessment.module_code }}</p>
-                <p><strong>Deadline:</strong> {{ assessment.deadline.strftime('%Y-%m-%d') }}</p>
-                <p><strong>Description:</strong> {{ assessment.description }}</p>
-                
-                <!-- Form to change status -->
-                {% if assessment.status == 'pending' %}
+                <div class="task-actions">
+                    {% if assessment.status == 'pending' %}
                     <form method="POST" action="{{ url_for('main.update_status', assessment_id=assessment.id) }}">
                         <button type="submit" class="status-btn">Mark as Completed</button>
                     </form>
-                {% endif %}
+                    {% endif %}
+                    <form action="{{ url_for('main.delete_task', id=assessment.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn delete-task">Delete</button>
+                    </form>
+                </div>
             </div>
         {% else %}
-            <p>No pending assessments.</p>
+            <p class="no-assessments">No pending assessments.</p>
         {% endfor %}
     </div>
 {% endblock %}
+
