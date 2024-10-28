@@ -7,8 +7,8 @@
         {% for assessment in assessments %}
             <div class="assessment-box">
                 <div class="task-content">
-                    <span class="module-code">{{ assessment.module_code }}</span>
                     <span class="title">{{ assessment.title }}</span>
+                    <span class="module-code">{{ assessment.module_code }}</span>
                     <span class="deadline">{{ assessment.deadline.strftime('%Y-%m-%d') }}</span>
                     <span class="description">{{ assessment.description }}</span>
                     <span class="status {% if assessment.status == 'pending' %}pending{% else %}completed{% endif %}">

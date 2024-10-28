@@ -208,13 +208,17 @@ nav a {
 }
 
 .module-code {
-    font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px; /* Space before other content */
 }
 
 .title {
-    font-size: 1.1em;
-    font-weight: 600;
+    font-size: 1.3em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .deadline, .description {
@@ -319,4 +323,37 @@ nav a {
     font-size: 1.5em; /* Make the font slightly larger */
     color: yellow; /* Match your yellow theme */
     text-align: center;
+}
+
+/* Sort Container */
+.sort-container {
+    display: flex; 
+    justify-content: center; /* Center horizontally */
+    margin: 20px 0; 
+}
+
+/* Dropdown Styles */
+.sort-options {
+    display: flex;
+    align-items: center;
+}
+
+.sort-options label {
+    margin-right: 10px; 
+    font-size: 1.1em; 
+    color: yellow; 
+}
+
+.sort-options select {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid grey;
+    border-radius: 4px;
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+/* Change background color on hover */
+.sort-options select:hover {
+    background-color: #444;
 }
