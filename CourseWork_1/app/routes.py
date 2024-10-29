@@ -43,7 +43,7 @@ def create():
 
         existing_assessment = Assessment.query.filter_by(title=title).first()
         if existing_assessment:
-            flash('A task with this title already exists. Please choose a different title.', 'danger')
+            flash('Assessment with this title already exists. Please choose a different title.', 'danger')
             return redirect(url_for('main.create'))
         
         # Create a new assessment object with the datetime-converted deadline
@@ -123,9 +123,20 @@ def edit_assessment(assessment_id):
     
     if request.method == 'POST':
         # Get updated data from the form
-        assessment.title = request.form['title']
+        new_title = request.form['title']
         assessment.module_code = request.form['module_code']
         assessment.description = request.form['description']
+
+        if new_title != assessment.title:
+            existing_assessment = Assessment.query.filter_by(title=new_title).first()
+            if existing_assessment:
+                flash('Assessment with this title already exists. Please choose a different title.', 'danger')
+                return redirect(url_for('main.edit_assessment', assessment_id=assessment_id))
+            else:
+                assessment.title = new_title
+            
+        else: 
+            assessment.title = new_title
         
         # Parse and update the deadline
         try:
