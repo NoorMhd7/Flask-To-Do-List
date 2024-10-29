@@ -1,3 +1,4 @@
+// toggle button
 document.addEventListener('DOMContentLoaded', function() {
     const toggle = document.querySelector('.navbar-toggle');
     const navbar = document.querySelector('.navbar');
@@ -8,9 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // scripts.js for create.html
-
 document.addEventListener("DOMContentLoaded", function() {
-    const formContainer = document.querySelector('.form-container');
+    const formContainer = document.querySelector('.form-container, .assessment-container', );
     formContainer.style.opacity = 0;
     formContainer.style.transition = 'opacity 0.5s ease-in-out';
     setTimeout(() => {

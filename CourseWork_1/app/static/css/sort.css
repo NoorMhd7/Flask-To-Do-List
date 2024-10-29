@@ -1,0 +1,22 @@
+/* Sort Container Styling */
+.sort-container {
+    max-width: 700px;
+    margin: 1rem auto;
+    padding: 10px;
+    text-align: right;
+    color: #ff0;
+}
+
+/* Sort Form and Select Styling */
+.sort-form {
+    display: inline-block;
+}
+
+#sort-options {
+    background-color: #222;
+    color: #ff0;
+    border: 1px solid #555;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}

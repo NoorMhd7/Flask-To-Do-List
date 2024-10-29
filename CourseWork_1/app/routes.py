@@ -7,7 +7,25 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    assessments = Assessment.query.all()
+    sort_option = request.args.get('sort', 'title_asc')
+
+    # Default query
+    query = Assessment.query
+
+    # Apply sorting based on selected option
+    if sort_option == 'title_asc':
+        assessments = query.order_by(Assessment.title.asc()).all()
+    elif sort_option == 'module_asc':
+        assessments = query.order_by(Assessment.module_code.asc()).all()
+    elif sort_option == 'deadline':
+        assessments = query.order_by(Assessment.deadline.asc()).all()
+    elif sort_option == 'pending':
+        assessments = query.filter_by(status='pending').all()
+    elif sort_option == 'completed':
+        assessments = query.filter_by(status='completed').all()
+    else:
+        assessments = query.all()  # Fallback to default ordering if needed
+
     return render_template('base.html', assessments=assessments)
 
 @main.route('/create', methods=['GET', 'POST'])

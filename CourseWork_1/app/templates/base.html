@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assessments</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sort.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/box.css') }}">
 </head>
 <body>
     <!-- Navbar -->
@@ -13,10 +16,10 @@
 
         <!-- Navbar Links -->
         <ul class="navbar-links">
-            <li><a href="{{ url_for('main.home') }}">All Assessments</a></li>
-            <li><a href="{{ url_for('main.create') }}">Create Assessments</a></li>
-            <li><a href="{{ url_for('main.pending') }}">Pending Assessments</a></li>
-            <li><a href="{{ url_for('main.completed') }}">Completed Assessments</a></li>
+            <li><a href="{{ url_for('main.home') }}" class="{% if request.path == url_for('main.home') %}active{% endif %}">All Assessments</a></li>
+            <li><a href="{{ url_for('main.create') }}" class="{% if request.path == url_for('main.create') %}active{% endif %}">Create Assessments</a></li>
+            <li><a href="{{ url_for('main.pending') }}" class="{% if request.path == url_for('main.pending') %}active{% endif %}">Pending Assessments</a></li>
+            <li><a href="{{ url_for('main.completed') }}" class="{% if request.path == url_for('main.completed') %}active{% endif %}">Completed Assessments</a></li>
         </ul>
         <!-- Navbar Brand -->
         <div class="navbar-brand">To do List</div>
@@ -39,21 +42,23 @@
     {% endif %}
     {% endwith %}
     
-        <!-- Sort Options -->
-    <div class="sort-container">
-        <div class="sort-options">
-            <label for="sort">Sort by:</label>
-            <select id="sort" name="sort" onchange="sortAssessments()">
-                <option value="title-asc">Title (A-Z)</option>
-                <option value="module-asc">Module (A-Z)</option>
-                <option value="deadline-closest">Closest Deadline</option>
-                <option value="status-pending">Pending Tasks</option>
-                <option value="status-completed">Completed Tasks</option>
-            </select>
-        </div>
-    </div>
+    
 
     {% block content %}
+
+    <div class="sort-container">
+        <label for="sort-options">Sort by:</label>
+        <form method="GET" action="{{ url_for('main.home') }}" class="sort-form">
+            <select name="sort" id="sort-options" onchange="this.form.submit()">
+                <option value="title_asc" {% if request.args.get('sort') == 'title_asc' %}selected{% endif %}>Title (A-Z)</option>
+                <option value="module_asc" {% if request.args.get('sort') == 'module_asc' %}selected{% endif %}>Module (A-Z)</option>
+                <option value="deadline" {% if request.args.get('sort') == 'deadline' %}selected{% endif %}>Closest Deadline</option>
+                <option value="pending" {% if request.args.get('sort') == 'pending' %}selected{% endif %}>Pending Tasks</option>
+                <option value="completed" {% if request.args.get('sort') == 'completed' %}selected{% endif %}>Completed Tasks</option>
+            </select>
+        </form>
+    </div>
+
     <div class="assessment-container"> <!-- Changed from task-list to assessment-container -->
         {% for assessment in assessments %}
             <div class="assessment-box"> <!-- Changed from task-container to assessment-box -->
