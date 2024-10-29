@@ -40,6 +40,11 @@ def create():
         
         description = request.form['description']
         status = request.form['status']
+
+        existing_assessment = Assessment.query.filter_by(title=title).first()
+        if existing_assessment:
+            flash('A task with this title already exists. Please choose a different title.', 'danger')
+            return redirect(url_for('main.create'))
         
         # Create a new assessment object with the datetime-converted deadline
         new_assessment = Assessment(title=title, module_code=module_code, 

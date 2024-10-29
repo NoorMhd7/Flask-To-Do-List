@@ -25,7 +25,7 @@ window.onload = function() {
         flashMessages.forEach(message => {
             message.style.opacity = '0'; // Fade out
         });
-    }, 2000); // 2000ms = 2 seconds
+    }, 3000); // 2000ms = 2 seconds
 
     // Completely remove the messages from the DOM after the fade-out transition
     setTimeout(() => {

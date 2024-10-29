@@ -97,13 +97,13 @@
 }
 
 .delete-task {
-    border-color: #f00; /* Red for delete */
-    color: #f00;
+    border-color: rgb(242, 78, 78); /* Red for delete */
+    color: rgb(242, 78, 78);
     transition: background-color 0.3s, color 0.3s;
 }
 
 .delete-task:hover {
-    background-color: #f00; /* Fill red on hover */
+    background-color: rgb(242, 78, 78); /* Fill red on hover */
     color: #fff; /* White text on hover */
 }
 
@@ -119,13 +119,13 @@
 }
 
 .edit-task {
-    border-color: rgb(138, 0, 218); /* Blue border for edit */
-    color: rgb(138, 0, 218);
+    border-color: rgb(224, 209, 0); /* Blue border for edit */
+    color: rgb(224, 209, 0);
     transition: background-color 0.3s, color 0.3s;
 }
 
 .edit-task:hover {
-    background-color: rgb(138, 0, 218);
+    background-color: rgb(224, 209, 0);
     color: #fff;
 }
 
