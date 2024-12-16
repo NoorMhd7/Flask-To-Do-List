@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sort.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/box.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        
+
+        <!-- Navbar Links -->
+        <ul class="navbar-links">
+            <li><a href="{{ url_for('main.home') }}" class="{% if request.path == url_for('main.home') %}active{% endif %}">All Assessments</a></li>
+            <li><a href="{{ url_for('main.create') }}" class="{% if request.path == url_for('main.create') %}active{% endif %}">Create Assessments</a></li>
+            <li><a href="{{ url_for('main.pending') }}" class="{% if request.path == url_for('main.pending') %}active{% endif %}">Pending Assessments</a></li>
+            <li><a href="{{ url_for('main.completed') }}" class="{% if request.path == url_for('main.completed') %}active{% endif %}">Completed Assessments</a></li>
+        </ul>
+        <!-- Navbar Brand -->
+        <div class="navbar-brand">To do List</div>
+
+        <!-- Navbar Toggle (for mobile) -->
+        <div class="navbar-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+    
+    
+
+    {% block content %}
+
+    <div class="sort-container">
+        <label for="sort-options">Sort by:</label>
+        <form method="GET" action="{{ url_for('main.home') }}" class="sort-form">
+            <select name="sort" id="sort-options" onchange="this.form.submit()">
+                <option value="title_asc" {% if request.args.get('sort') == 'title_asc' %}selected{% endif %}>Title (A-Z)</option>
+                <option value="module_asc" {% if request.args.get('sort') == 'module_asc' %}selected{% endif %}>Module (A-Z)</option>
+                <option value="deadline" {% if request.args.get('sort') == 'deadline' %}selected{% endif %}>Closest Deadline</option>
+                <option value="pending" {% if request.args.get('sort') == 'pending' %}selected{% endif %}>Pending Tasks</option>
+                <option value="completed" {% if request.args.get('sort') == 'completed' %}selected{% endif %}>Completed Tasks</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="assessment-container"> <!-- Changed from task-list to assessment-container -->
+        {% for assessment in assessments %}
+            <div class="assessment-box"> <!-- Changed from task-container to assessment-box -->
+                <div class="task-content">
+                    <span class="title">{{ assessment.title }}</span>
+                    <span class="module-code">{{ assessment.module_code }}</span>
+                    <span class="deadline">{{ assessment.deadline.strftime('%Y-%m-%d') }}</span>
+                    <span class="description">{{ assessment.description }}</span>
+                    <span class="status {% if assessment.status == 'pending' %}pending{% else %}completed{% endif %}">
+                        {{ assessment.status }}
+                    </span>
+                </div>
+
+                <div class="task-actions">
+                    <a href="{{ url_for('main.edit_assessment', assessment_id=assessment.id) }}" class="btn edit-task">Edit</a>
+                    {% if assessment.status == 'pending' %}
+                    <form method="POST" action="{{ url_for('main.update_status', assessment_id=assessment.id) }}">
+                        <button type="submit" class="status-btn">Mark as Completed</button>
+                    </form>
+                    {% endif %}
+                    {% if assessment.status == 'completed' %}
+                    <form method="POST" action="{{ url_for('main.unfinish_status', assessment_id=assessment.id) }}">
+                        <button type="submit" class="unfinish-btn">Un-finish</button>
+                    </form>
+                    {% endif %}
+                    <form action="{{ url_for('main.delete_task', id=assessment.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn delete-task">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p class="no-assessments">No assessments available.</p>
+        {% endfor %}
+    </div>
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

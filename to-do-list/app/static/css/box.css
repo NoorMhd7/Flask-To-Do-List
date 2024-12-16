@@ -1,0 +1,145 @@
+/* Container for All Assessments */
+.assessment-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000; /* Black background */
+    color: #ff0; /* Yellow text */
+}
+
+/* Assessment Box Layout */
+.assessment-box {
+    background-color: #222; /* Dark gray for individual assessment boxes */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #555; /* Subtle border */
+    color: #ff0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Content Styling */
+.task-content {
+    flex-grow: 1;
+    color: #ff0; /* Yellow text */
+}
+
+.module-code {
+    font-size: 1.1em;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px; /* Space before other content */
+}
+
+.title {
+    font-size: 1.3em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.deadline, .description {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #d3d3d3; /* Light gray for secondary text */
+}
+
+.status {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ff0; /* Yellow text for status */
+}
+
+/* Different status styles */
+.pending {
+    background-color: #444; /* Darker shade for pending */
+    color: orange;
+}
+
+.completed {
+    background-color: #444;  /* Green for completed */
+    color: rgb(4, 231, 4);
+}
+
+/* Actions Styling */
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.status-btn, .delete-task, .unfinish-btn, .edit-task {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+    color: #ff0;
+    background-color: transparent;
+    border: 1px solid #ff0;
+}
+
+/* Specific Button Colors */
+.status-btn {
+    border-color: #0a0; /* Green border for status button */
+    color: #0a0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.status-btn:hover {
+    background-color: #0a0; /* Fill green on hover */
+    color: #fff; /* White text on hover */
+}
+
+.delete-task {
+    border-color: rgb(242, 78, 78); /* Red for delete */
+    color: rgb(242, 78, 78);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.delete-task:hover {
+    background-color: rgb(242, 78, 78); /* Fill red on hover */
+    color: #fff; /* White text on hover */
+}
+
+.unfinish-btn {
+    border-color: rgb(0, 156, 228);
+    color: rgb(0, 156, 228);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.unfinish-btn:hover {
+    background-color: rgb(0, 156, 228);
+    color: #fff;
+}
+
+.edit-task {
+    border-color: rgb(224, 209, 0); /* Blue border for edit */
+    color: rgb(224, 209, 0);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.edit-task:hover {
+    background-color: rgb(224, 209, 0);
+    color: #fff;
+}
+
+/* Form styling within actions */
+.task-actions form {
+    display: inline;
+}
+
+.no-assessments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Adjust height as needed */
+    font-size: 1.5em; /* Make the font slightly larger */
+    color: yellow; /* Match your yellow theme */
+    text-align: center;
+}
